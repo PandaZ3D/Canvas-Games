@@ -9,7 +9,7 @@
 **Created:** August 2017
 --------------------------------------
 
-![Snake](https://github.com/PandaZ3D/Canvas-Games/Snake/img/snake.png)
+![Snake](https://github.com/PandaZ3D/Canvas-Games/blob/master/Snake/img/snake.png)
 
 **8-bit Snake Game**
 
