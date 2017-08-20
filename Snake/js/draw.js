@@ -17,9 +17,15 @@ var drawModule = (function () {
 
   var scoreText = function() {
     var score_text = "Score: " + score;
+    var high_text = "High: " + high;
+
     ctx.font = "15px Helvetica";
     ctx.fillStyle = 'white';
     ctx.fillText(score_text, 5, h-5);
+
+    ctx.font = "15px Helvetica";
+    ctx.fillStyle = 'white';
+    ctx.fillText(high_text, w-60, h-5);
   }
 
   var drawSnake = function() {
@@ -63,6 +69,7 @@ var drawModule = (function () {
         if(snakeX == food.x && snakeY == food.y) {
           var tail = {x: snakeX, y: snakeY}; //Create a new head instead of moving the tail
           score ++;
+          high++;
           
           createFood(); //Create new food
         } else {
