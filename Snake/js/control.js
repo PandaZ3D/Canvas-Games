@@ -2,16 +2,23 @@
 //dir: u, d, r, l
 (function (window, document, drawModule, undefined) {
 
-var btn = document.getElementById('btn');
-btn.addEventListener("click", function(){ drawModule.init();});
+  var btn = document.getElementById('btn');
+  btn.addEventListener("click", function(){ drawModule.init();});
 
-	document.onkeydown = function(event) {
+  document.onkeydown = function(event) {
 
         keyCode = window.event.keyCode; 
         keyCode = event.keyCode;
 
         switch(keyCode) {
         
+        case 13:
+          if(click == false) {
+            drawModule.init();
+            btn.setAttribute('disabled', true);
+            click = true;
+          }
+          break;
         case 37: 
           if (direction != 'right') {
             direction = 'left';

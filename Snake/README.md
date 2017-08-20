@@ -20,3 +20,11 @@ This game is a simple snake game made with HTML5's Canvas element. The snake can
 ![Home](https://github.com/PandaZ3D/Canvas-Games/blob/master/Snake/home.png)
 
 ![Play](https://github.com/PandaZ3D/Canvas-Games/blob/master/Snake/play.png)
+
+**Working On...**
+
+* Esc exit code
+* AI mode
+* Pop up menu
+* Random Colors
+* Snek color choice
