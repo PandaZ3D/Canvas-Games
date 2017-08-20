@@ -15,3 +15,8 @@
 
 This game is a simple snake game made with HTML5's Canvas element. The snake can be thought of as an array segments that move only when the last element is pushed to the front. The game has a running high score, and a current score. The home page displays a game cover with a round start button. 
 
+**HTML Snake Gameplay**
+
+![Home](https://github.com/PandaZ3D/Canvas-Games/blob/master/Snake/home.png)
+
+![Play](https://github.com/PandaZ3D/Canvas-Games/blob/master/Snake/play.png)

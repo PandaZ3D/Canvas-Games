@@ -69,8 +69,9 @@ var drawModule = (function () {
         if(snakeX == food.x && snakeY == food.y) {
           var tail = {x: snakeX, y: snakeY}; //Create a new head instead of moving the tail
           score ++;
-          high++;
-          
+          if(score > high) {
+            high++;
+          }
           createFood(); //Create new food
         } else {
           var tail = snake.pop(); //pops out the last cell

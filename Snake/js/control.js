@@ -1,3 +1,5 @@
+//arrow key codes: 37, 38, 39, 40 in clockwise
+//dir: u, d, r, l
 (function (window, document, drawModule, undefined) {
 
 var btn = document.getElementById('btn');
