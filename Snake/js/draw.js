@@ -112,38 +112,31 @@ var drawModule = (function () {
         snakeY++; 
       }
 
-      tail = enemy.pop();
-      tail.x = snakeX;
-      tail.y = snakeY;
-
-      enemy.unshift(tail);
-      /*
-      if (snakeX == -1 || snakeX == w/snakeSize || snakeY == -1 || snakeY == h/snakeSize) {
-          //restart game
-          btn.removeAttribute('disabled', true);
-          click = false;
-          
-          score = 0;
-          ctx.clearRect(0,0,w,h);
-          gameloop = clearInterval(gameloop);
-          return;          
+      if (snakeX == -1) {
+        edir = "down";
+        snakeX++;
+      } else if (snakeX == w/snakeSize) {
+        edir = "up";
+        snakeX--;
+      } else if (snakeY == -1) {
+        edir = "left";
+        snakeY++;
+      } else if (snakeY == h/snakeSize) {
+        edir = "right";
+        snakeY--;   
       }
         
       if(snakeX == food.x && snakeY == food.y) {
         var tail = {x: snakeX, y: snakeY}; //Create a new head instead of moving the tail
-        score ++;
-        if(score > high) {
-          high++;
-        }
         createFood(); //Create new food
       } else {
-        var tail = snake.pop(); //pops out the last cell
-        tail.x = snakeX; 
+        tail = enemy.pop();
+        tail.x = snakeX;
         tail.y = snakeY;
       }
       //The snake can now eat the food.
-      snake.unshift(tail); //puts back the tail as the first cell
-      */
+      enemy.unshift(tail); //puts back the tail as the first cell
+      
       //draw snakes
       for(var i = 0; i < snake.length; i++) {
         bodySnake(snake[i].x, snake[i].y, colors[0]);
