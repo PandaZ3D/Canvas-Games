@@ -11,8 +11,7 @@
         keyCode = event.keyCode;
 
         switch(keyCode) {
-        
-        case 13:
+          case 13:
           if(click == false) {
             drawModule.init();
             btn.setAttribute('disabled', true);
@@ -46,7 +45,7 @@
           console.log('down');
           }
           break;
-          }
+        }
       }
 
 
