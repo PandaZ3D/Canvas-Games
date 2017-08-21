@@ -30,10 +30,11 @@ var drawModule = (function () {
 
   var drawSnake = function() {
       var length = 4;
-      snake = [];
+      s = [];
       for (var i = length-1; i>=0; i--) {
-          snake.push({x:i, y:0});
-      }  
+          s.push({x:i, y:0});
+      }
+      return s;  
   }
     
   var paint = function(){
@@ -87,6 +88,10 @@ var drawModule = (function () {
           bodySnake(snake[i].x, snake[i].y);
         } 
         
+        for(var i = 0; i < enemy.length; i++) {
+          bodySnake(enemy[i].x, enemy[i].y);
+        } 
+
         apple(food.x, food.y); 
         scoreText();
   }
@@ -118,7 +123,8 @@ var drawModule = (function () {
 
   var init = function(){
       direction = 'down';
-      drawSnake();
+      snake = drawSnake();
+      enemy = drawSnake();
       createFood();
       gameloop = setInterval(paint, 80);
   }
