@@ -58,6 +58,7 @@ var drawModule = (function () {
       btn.setAttribute('disabled', true);
       click = true;
 
+      /*
       //check snake player
       var snakeX = snake[0].x;
       var snakeY = snake[0].y;
@@ -97,6 +98,7 @@ var drawModule = (function () {
       }
       //The snake can now eat the food.
       snake.unshift(tail); //puts back the tail as the first cell
+      */
 
       //move enemy snake
       snakeX = enemy[0].x;
@@ -177,28 +179,14 @@ var drawModule = (function () {
       return false;
   }
 
-  /*
-  var move = function (dir, snek) {
-    var snakeX = snek[0].x;
-    var snakeY = snek[0].y;
-
-    switch(dir) {
-      case key.RIGHT:
-        snakeX++;
-      case key.LEFT:
-        snakeX--;
-      case key.UP:
-        snakeY--;
-      case key.DOWN:
-        snakeY++;  
-    }
+  var moveEnemy = function () {
+    
   }
-  */
 
   var init = function(){
       //initialize snake
-      direction = "down";
-      snake = drawSnake(0,0);
+      //direction = "down";
+      //snake = drawSnake(0,0);
       //initialize enemy
       edir = "right";
       colors.push(randColor());

@@ -34,7 +34,7 @@ var click = false;
 //dynamically created variables
 var snake;
 var food;
-var colors = ['green','orange'];
+var colors = ['green'];
 //We first test a single enemy snake
 var enemy;
 var edir;
