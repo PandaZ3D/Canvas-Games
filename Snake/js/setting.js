@@ -38,3 +38,9 @@ var colors = ['green'];
 //We first test a single enemy snake
 var enemy;
 var edir;
+
+//AI
+var world = [[]];
+var start;
+var end;
+var currentPath = [];

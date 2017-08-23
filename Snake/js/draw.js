@@ -36,7 +36,12 @@ var drawModule = (function () {
   //random color generation
   //https://www.paulirish.com/2009/random-hex-color-code-snippets/
   var randColor = function() {
-    return '#'+Math.floor(Math.random()*16777215).toString(16);
+    var n = Math.floor(Math.random()*16777215).toString(16);
+    //check for propetly formatted strings
+    for(var i = n.length; i<6; i++){
+        n = '0' + n;
+    }
+    return '#'+n;
   }
 
   //drawing elements
@@ -76,9 +81,11 @@ var drawModule = (function () {
       if (snakeX == -1 || snakeX == w/snakeSize || snakeY == -1 || snakeY == h/snakeSize || checkCollision(snakeX, snakeY, snake)) {
           //restart game
           btn.removeAttribute('disabled', true);
+
           click = false;
-          
           score = 0;
+          colors.pop();
+
           ctx.clearRect(0,0,w,h);
           gameloop = clearInterval(gameloop);
           return;          
@@ -101,8 +108,8 @@ var drawModule = (function () {
       */
 
       //move enemy snake
-      snakeX = enemy[0].x;
-      snakeY = enemy[0].y;
+      var snakeX = enemy[0].x;
+      var snakeY = enemy[0].y;
 
       if (edir == 'right') { 
         snakeX++; }
@@ -138,12 +145,12 @@ var drawModule = (function () {
       }
       //The snake can now eat the food.
       enemy.unshift(tail); //puts back the tail as the first cell
-      
+      /*
       //draw snakes
       for(var i = 0; i < snake.length; i++) {
         bodySnake(snake[i].x, snake[i].y, colors[0]);
       } 
-      
+      */
       for(var i = 0; i < enemy.length; i++) {
         bodySnake(enemy[i].x, enemy[i].y, colors[1]);
       } 
@@ -159,7 +166,7 @@ var drawModule = (function () {
         y: Math.floor((Math.random() * 30) + 1)
       }
 
-      for (var i=0; i>snake.length; i++) {
+      /*for (var i=0; i>snake.length; i++) {
         var snakeX = snake[i].x;
         var snakeY = snake[i].y;
       
@@ -167,7 +174,7 @@ var drawModule = (function () {
           food.x = Math.floor((Math.random() * 30) + 1);
           food.y = Math.floor((Math.random() * 30) + 1);
         }
-      }
+      }*/
   }
 
   //position and movement
@@ -185,7 +192,7 @@ var drawModule = (function () {
 
   var init = function(){
       //initialize snake
-      //direction = "down";
+      direction = "down";
       //snake = drawSnake(0,0);
       //initialize enemy
       edir = "right";

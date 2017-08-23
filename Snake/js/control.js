@@ -22,6 +22,7 @@
             btn.removeAttribute('disabled', true);
             click = false;
             score = 0;
+            colors.pop();
             ctx.clearRect(0,0,w,h);
             gameloop = clearInterval(gameloop);
             break;
