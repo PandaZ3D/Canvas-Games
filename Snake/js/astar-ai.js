@@ -1,10 +1,23 @@
-function emptyWorld(world, worldWidth, worldHeight) 
+function initWorld(world, worldWidth, worldHeight) 
 {
+	console.log('Creating world...');
 	// create emptiness
   for (var x=0; x < worldWidth; x++)
   {
     world[x] = [];
     
+    for (var y=0; y < worldHeight; y++)
+    {
+      world[x][y] = 0;
+    }
+  }
+}
+
+function emptyWorld(world, worldWidth, worldHeight) 
+{
+	// create emptiness
+  for (var x=0; x < worldWidth; x++)
+  { 
     for (var y=0; y < worldHeight; y++)
     {
       world[x][y] = 0;

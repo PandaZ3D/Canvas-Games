@@ -50,6 +50,8 @@ var drawModule = (function () {
       s = [];
       for (var i = length-1; i>=0; i--) {
           s.push({x:x+i, y:y});
+		  world[x+i][y] = 1;
+		  console.log('Mapped snake...');
       }
       return s;  
   }
@@ -111,10 +113,28 @@ var drawModule = (function () {
       var snakeX = enemy[0].x;
       var snakeY = enemy[0].y;
 
+	  pathStart = [snakeX,snakeY];
+	  pathEnd = [food.x, food.y];
+	  
+	  currentPath = findPath(world,pathStart,pathEnd,'Manhattan');
+		
+	  edir = enemyDirection(currentPath);
+	  
+	  if (flag < 20)
+	  {	  
+	  if(flag==0){console.log(food);
+	  console.table(currentPath);}
+	  console.log(edir);
+	  console.log([snakeX,snakeY]);
+	  flag++;
+	  } 
+	  
       if (edir == 'right') { 
-        snakeX++; }
+        snakeX++; 
+	  }
       else if (edir == 'left') { 
-        snakeX--; }
+        snakeX--; 
+	  }
       else if (edir == 'up') { 
         snakeY--; 
       } else if(edir == 'down') { 
@@ -140,12 +160,15 @@ var drawModule = (function () {
         createFood(); //Create new food
       } else {
         tail = enemy.pop();
+		world[tail.x][tail.y] = 0;
         tail.x = snakeX;
         tail.y = snakeY;
       }
       //The snake can now eat the food.
       enemy.unshift(tail); //puts back the tail as the first cell
-      /*
+	  world[tail.x][tail.y] = 1;
+      
+	  /*
       //draw snakes
       for(var i = 0; i < snake.length; i++) {
         bodySnake(snake[i].x, snake[i].y, colors[0]);
@@ -162,8 +185,8 @@ var drawModule = (function () {
   //food initializer
   var createFood = function() {
       food = {
-        x: Math.floor((Math.random() * 30) + 1),
-        y: Math.floor((Math.random() * 30) + 1)
+        x: 11,
+        y: 25
       }
 
       /*for (var i=0; i>snake.length; i++) {
@@ -186,21 +209,66 @@ var drawModule = (function () {
       return false;
   }
 
-  var moveEnemy = function () {
-    
+  var enemyDirection = function(path)
+  {
+	//console.log('Finding enemy direction...');
+	
+	var currentPos = path[0];
+	var nextPos = path[1];
+	
+	var dir = "up";
+	
+	var x = 0;
+	var y = 1;
+	
+	//check if horizontal movement
+	//console.log('Checking horizontal...');
+	if(currentPos[y] == nextPos[y])
+	{
+		//console.log('Checking up...');
+		//check for left or right
+		if (nextPos[x] < currentPos[x])
+		{
+			
+			dir = "left"; 
+		} 	
+		//console.log('Checking down...');
+		if (nextPos[x] > currentPos[x])
+		{
+			dir = "right";
+		}
+	} //check if vertical movement 
+	//console.log('Checkin vertical...');
+	if(currentPos[x] == nextPos[x])
+	{
+		//console.log('Checkin up...');
+		//check for up or down
+		if (nextPos[y] < currentPos[y])
+		{
+			dir = "up"; 
+		}
+		//console.log('Checkin down...');
+		if (nextPos[y] > currentPos[y])
+		{
+			dir = "down";
+		}
+	}
+	return dir;
   }
-
+  
   var init = function(){
-      //initialize snake
+      //initailize world
+	  initWorld(world, w/snakeSize, h/snakeSize);
+	  //initialize snake
       direction = "down";
       //snake = drawSnake(0,0);
       //initialize enemy
       edir = "right";
       colors.push(randColor());
-      enemy = drawSnake(randCoor(),randCoor());
+      enemy = drawSnake(10,20);
       //generate food
       createFood();
-      //main game
+	  //main game
       gameloop = setInterval(paint, 80);
   }
 

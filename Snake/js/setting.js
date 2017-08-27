@@ -41,6 +41,9 @@ var edir;
 
 //AI
 var world = [[]];
-var start;
-var end;
+// start and end of path
+var pathStart = [w/snakeSize,h/snakeSize];
+var pathEnd = [0,0];
 var currentPath = [];
+
+var flag = 0;
