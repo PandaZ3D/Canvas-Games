@@ -36,6 +36,7 @@ var drawModule = (function () {
   //random color generation
   //https://www.paulirish.com/2009/random-hex-color-code-snippets/
   var randColor = function() {
+	//0xffffff = 16777215 
     var n = Math.floor(Math.random()*16777215).toString(16);
     //check for propetly formatted strings
     for(var i = n.length; i<6; i++){
@@ -120,15 +121,6 @@ var drawModule = (function () {
 		
 	  edir = enemyDirection(currentPath);
 	  
-	  if (flag < 20)
-	  {	  
-	  if(flag==0){console.log(food);
-	  console.table(currentPath);}
-	  console.log(edir);
-	  console.log([snakeX,snakeY]);
-	  flag++;
-	  } 
-	  
       if (edir == 'right') { 
         snakeX++; 
 	  }
@@ -156,6 +148,7 @@ var drawModule = (function () {
       }
         
       if(snakeX == food.x && snakeY == food.y) {
+		console.log("ate food");
         var tail = {x: snakeX, y: snakeY}; //Create a new head instead of moving the tail
         createFood(); //Create new food
       } else {
@@ -185,19 +178,15 @@ var drawModule = (function () {
   //food initializer
   var createFood = function() {
       food = {
-        x: 11,
-        y: 25
+        x: randCoor(),
+        y: randCoor()
       }
 
-      /*for (var i=0; i>snake.length; i++) {
-        var snakeX = snake[i].x;
-        var snakeY = snake[i].y;
-      
-        if (food.x===snakeX && food.y === snakeY || food.y === snakeY && food.x===snakeX) {
-          food.x = Math.floor((Math.random() * 30) + 1);
-          food.y = Math.floor((Math.random() * 30) + 1);
-        }
-      }*/
+	  //check for collision using world array
+	  if(world[food.x][food.y] == 1) 
+	  {
+		createFood();
+	  }
   }
 
   //position and movement
@@ -265,7 +254,7 @@ var drawModule = (function () {
       //initialize enemy
       edir = "right";
       colors.push(randColor());
-      enemy = drawSnake(10,20);
+      enemy = drawSnake(randCoor(),randCoor());
       //generate food
       createFood();
 	  //main game
