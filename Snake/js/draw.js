@@ -66,7 +66,7 @@ var drawModule = (function () {
       btn.setAttribute('disabled', true);
       click = true;
 
-      /*
+      
       //check snake player
       var snakeX = snake[0].x;
       var snakeY = snake[0].y;
@@ -108,7 +108,7 @@ var drawModule = (function () {
       }
       //The snake can now eat the food.
       snake.unshift(tail); //puts back the tail as the first cell
-      */
+      
 
       //move enemy snake
       var snakeX = enemy[0].x;
@@ -119,7 +119,7 @@ var drawModule = (function () {
 	  
 	  currentPath = findPath(world,pathStart,pathEnd,'Manhattan');
 		
-	  edir = enemyDirection(currentPath);
+	  enemyDirection(currentPath);
 	  
       if (edir == 'right') { 
         snakeX++; 
@@ -161,12 +161,12 @@ var drawModule = (function () {
       enemy.unshift(tail); //puts back the tail as the first cell
 	  world[tail.x][tail.y] = 1;
       
-	  /*
+	  
       //draw snakes
       for(var i = 0; i < snake.length; i++) {
         bodySnake(snake[i].x, snake[i].y, colors[0]);
       } 
-      */
+      
       for(var i = 0; i < enemy.length; i++) {
         bodySnake(enemy[i].x, enemy[i].y, colors[1]);
       } 
@@ -242,7 +242,49 @@ var drawModule = (function () {
 			dir = "down";
 		}
 	}
-	return dir;
+	edir = dir;
+  }
+  
+  var randPos = function() 
+  {
+	  var snakeX = randCoor();
+	  var snakeY = randCoor()
+	  
+	  if(world[snakeX][snakeY] == 1) 
+	  {
+		return randPos();
+	  }
+	  else
+	  {
+		return {x:snakeX, y:snakeY}; 
+	  }
+  }
+  
+  var randSnake = function()
+  {
+	  var snek = [];
+	  var pos = randPos();
+	  var length = 4;
+	  for(var i = length-1; i>=0; i--)
+	  {
+		  if(world[pos.x+i][pos.y] == 1)
+		  {
+			  console.log("Reinit snake");
+			  return randSnake();
+		  }
+		  console.log("Add snake "+pos.x+i+","+pos.y);
+		  snek.push({x:pos.x+i, y:pos.y})
+	  }
+	  return snek;
+  }
+  
+  var mapSnake = function(snek)
+  {
+	for(var i = 0; i<snek.length; i++)
+	{
+		var pos = snek[i];
+		world[pos.x][pos.y] = 1;
+	}	
   }
   
   var init = function(){
@@ -250,11 +292,12 @@ var drawModule = (function () {
 	  initWorld(world, w/snakeSize, h/snakeSize);
 	  //initialize snake
       direction = "down";
-      //snake = drawSnake(0,0);
+      snake = drawSnake(0,0);
       //initialize enemy
       edir = "right";
       colors.push(randColor());
-      enemy = drawSnake(randCoor(),randCoor());
+      enemy = randSnake();
+	  mapSnake(enemy);
       //generate food
       createFood();
 	  //main game
